@@ -71,7 +71,7 @@ class Day extends React.Component {
 
     getWeekHolidays(){
       var holidaysWeek = this.state.week.map(day => {
-        var holiday = this.state.folkHolidays.filter(a => a.date.format("MM.DD") == day.format("MM.DD"))
+        var holiday = this.state.folkHolidays.filter(a => a.date.format("MM.DD") === day.format("MM.DD"))
         return holiday ? holiday : [[]];
       });
       this.setState({folkHolidaysThisWeek: holidaysWeek})
@@ -108,7 +108,7 @@ class Day extends React.Component {
     setActualMonthAndYear(week, weekDay){
       var month = week[weekDay].format("MM");
       var year = week[weekDay].format("YYYY");
-      if(this.state.requestedDates.findIndex(a => a == month + year) == -1){
+      if(this.state.requestedDates.findIndex(a => a === month + year) === -1){
         this.requestDates(weekDay);
       }
       this.setState({actualMonth: month, actualYear: year})
@@ -132,8 +132,8 @@ class Day extends React.Component {
         <div className="wrapper">
           <Calendar
           week={this.state.week} 
-          folkHolidays={this.state.folkHolidaysThisWeek.map(a => a.filter(b => b.type == 0).map(b => b.description))}
-          calendarHolidays={this.state.folkHolidaysThisWeek.map(a => a.filter(b => b.type == 1).map(b => b.description))}
+          folkHolidays={this.state.folkHolidaysThisWeek.map(a => a.filter(b => b.type === '0').map(b => b.description))}
+          calendarHolidays={this.state.folkHolidaysThisWeek.map(a => a.filter(b => b.type === '1').map(b => b.description))}
           ></Calendar>
           <div className="calendar-controls">
             <button onClick={() => this.goToPrevWeek()}>prev week</button>
