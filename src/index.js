@@ -45,7 +45,7 @@ function getCurrentWeek() {
 function goToPrevWeek(state) {
   let newState = {...state};
   let prevWeek = newState.week.map((e, i) => { return e.subtract(7, 'days'); })
-  setActualMonthAndYear({...state, week: prevWeek}, prevWeek, 6);
+  setActualMonthAndYear({...state, week: prevWeek}, prevWeek, 0);
   return {...state, week: prevWeek, folkHolidaysThisWeek: getWeekHolidays(state)}
 }
 
