@@ -1,0 +1,38 @@
+.day {
+    width: 100%;
+    min-width: 50px;
+  }
+  
+  .square {
+    background: #fff;
+    border: 1px solid #999;
+    /*float: left;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 40px;*/
+    height: 80px;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+  }
+  
+
+  .folk-holiday{
+    font-size: 10px;
+    color: rgb(255, 255, 255);
+    background-color:rgb(3, 0, 158);
+  }
+
+  .calendar-holiday{
+    font-size: 10px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0)
+  }
+
+  .date {
+    font-size: smaller;
+    text-align: center;
+  }
