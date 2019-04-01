@@ -25,11 +25,11 @@ function requestDates(state, weekDay = 0) {
   fetch(`http://localhost/calendar-api/holidaysmonth?month=${month}&year=${year}`)
     .then(results => results.json())
     .then(data => {
-      state.folkHolidays = state.folkHolidays.concat(data.map(a => ({ ...a, date: moment(a.date) })));
+      state.holidays = state.holidays.concat(data.map(a => ({ ...a, date: moment(a.date) })));
       state.requestedDates = [...state.requestedDates, month + year];
       state.actualMonth = month;
       state.actualYear = year;
-      state.folkHolidaysThisWeek = getWeekHolidays(state);
+      state.holidaysThisWeek = getWeekHolidays(state);
 
       store.dispatch(createGotDates(state));
     }).catch(() => {
@@ -39,7 +39,7 @@ function requestDates(state, weekDay = 0) {
 
 function getWeekHolidays(state) {
   return state.week.map(day => {
-    var holiday = state.folkHolidays.filter(a => a.date.format("MM.DD") === day.format("MM.DD"))
+    var holiday = state.holidays.filter(a => a.date.format("MM.DD") === day.format("MM.DD"))
     return holiday ? holiday : [[]];
   });
 }
@@ -60,14 +60,14 @@ function goToPrevWeek(state) {
   let newState = { ...state };
   let prevWeek = newState.week.map((e, i) => { return e.subtract(7, 'days'); })
   requestHolidays({ ...state, week: prevWeek }, prevWeek, 0);
-  return { ...state, week: prevWeek, folkHolidaysThisWeek: getWeekHolidays(state) }
+  return { ...state, week: prevWeek, holidaysThisWeek: getWeekHolidays(state) }
 }
 
 function goToNextWeek(state) {
   let newState = { ...state };
   let nextWeek = newState.week.map((e, i) => { return e.add(7, 'days'); })
   requestHolidays({ ...state, week: nextWeek }, nextWeek, 6);
-  return { ...state, week: nextWeek, folkHolidaysThisWeek: getWeekHolidays(state) }
+  return { ...state, week: nextWeek, holidaysThisWeek: getWeekHolidays(state) }
 }
 
 function requestHolidays(state, week = state.week, weekDay = 6) {
@@ -88,14 +88,14 @@ function changeWeekStartDay(state, e) {
   }
   let newState = { ...state, week: newWeek, startDay: e.target.value }
   requestHolidays(newState, newWeek, 0);
-  return { ...newState, folkHolidaysThisWeek: getWeekHolidays(state) }
+  return { ...newState, holidaysThisWeek: getWeekHolidays(state) }
 }
 
 const initialState = {
   week: getCurrentWeek(),
   startDay: "Sun",
-  folkHolidays: [],
-  folkHolidaysThisWeek: [Array(7).fill('')],
+  holidays: [],
+  holidaysThisWeek: [Array(7).fill('')],
   actualMonth: -1,
   actualYear: -1,
   requestedDates: []
@@ -115,8 +115,8 @@ function calendarReducer(state = initialState, action) {
     case GOT_DATA_FROM_API:
       return {
         ...state,
-        folkHolidays: action.payload.folkHolidays,
-        folkHolidaysThisWeek: action.payload.folkHolidaysThisWeek,
+        holidays: action.payload.holidays,
+        holidaysThisWeek: action.payload.holidaysThisWeek,
         actualMonth: action.payload.actualMonth,
         actualYear: action.payload.actualYear,
         requestedDates: action.payload.requestedDates
