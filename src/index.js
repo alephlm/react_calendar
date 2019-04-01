@@ -16,8 +16,8 @@ function requestDates(state, weekDay = 0) {
       folkHolidays: data, 
       requestedDates: [...state.requestedDates, month + year],
       actualMonth: month,
-      actualYear: year,
-      folkHolidaysThisWeek: getWeekHolidays(state)};
+      actualYear: year,};
+      newState = {...newState, folkHolidaysThisWeek: getWeekHolidays(newState)}
       
       store.dispatch({type: "FETCH", payload: newState});
       })
@@ -56,7 +56,7 @@ function goToNextWeek(state) {
   return {...state, week: nextWeek, folkHolidaysThisWeek: getWeekHolidays(state)}
 }
 
-function setActualMonthAndYear(state, week, weekDay) {
+function setActualMonthAndYear(state, week = state.week, weekDay = 6) {
   var month = week[weekDay].format("MM");
   var year = week[weekDay].format("YYYY");
   if (state.requestedDates.findIndex(a => a === month + year) === -1) {
@@ -81,7 +81,7 @@ const initialState = {
   week: getCurrentWeek(),
   startDay: "Sun",
   folkHolidays: [],
-  folkHolidaysThisWeek: [[]],
+  folkHolidaysThisWeek: [Array(7).fill('')],
   actualMonth: -1,
   actualYear: -1,
   requestedDates: []
@@ -91,12 +91,12 @@ function calendarReducer(state = initialState, action) {
   switch (action.type) {
     case 'NEXT_WEEK':
       return goToNextWeek(state);
-      break;
     case 'PREV_WEEK':
       return goToPrevWeek(state);
-      break;
-      case 'CHANGE_START_DAY':
+    case 'CHANGE_START_DAY':
       return changeWeekStartDay(state, action.payload);
+    case 'COMPONENT_MOUNT':
+      setActualMonthAndYear(state);
       break;
     case 'FETCH':
       return {...state, 
@@ -105,7 +105,6 @@ function calendarReducer(state = initialState, action) {
         actualMonth: action.payload.actualMonth,
         actualYear: action.payload.actualYear,
         requestedDates: action.payload.requestedDates};
-      break;
     default:
       return state
   }

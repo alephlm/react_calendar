@@ -5,11 +5,8 @@
   
   .square {
     background: #fff;
-    border: 1px solid #999;
-    /*float: left;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 40px;*/
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
     height: 80px;
     margin-right: -1px;
     margin-top: -1px;
@@ -23,16 +20,47 @@
   .folk-holiday{
     font-size: 10px;
     color: rgb(255, 255, 255);
-    background-color:rgb(3, 0, 158);
+    background-color:#245179;
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 100px;
   }
 
   .calendar-holiday{
     font-size: 10px;
     color: rgb(255, 255, 255);
-    background-color: rgb(0, 0, 0)
+    background-color: rgb(0, 0, 0);
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 100px;
   }
 
   .date {
     font-size: smaller;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .week-day{
+    border-radius: 100px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    border: 1px solid #245179;
+  }
+
+  .holiday-wrapper {
+    padding: 5px;
+  }
+
+  .calendar-holiday-wrapper {
+    margin-top: -10px;
   }

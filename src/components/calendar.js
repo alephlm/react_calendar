@@ -11,8 +11,10 @@ export const Calendar = (props) => {
     }
   }
   return (
-    <div>
-      {monthName()}
+    <div className="calendar-wrapper">
+      <div className="month-description">
+        {monthName()}
+      </div>
       <div className="calendar">
         {props.week.map((e, i) =>
           <Day date={props.week[i]}
