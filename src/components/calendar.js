@@ -17,7 +17,7 @@ export const Calendar = (props) => {
       </div>
       <div className="calendar">
         {props.week.map((e, i) =>
-          <Day date={props.week[i]}
+          <Day key={i} date={props.week[i]}
             folkHoliday={props.folkHolidays[i]}
             calendarHoliday={props.calendarHolidays[i]}></Day>
         )}

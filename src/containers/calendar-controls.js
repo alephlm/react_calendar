@@ -12,9 +12,9 @@ export class CalendarControls extends React.Component {
     return (
       <div className="wrapper">
         <Calendar
-          week={this.props.state.week}
-          folkHolidays={this.props.state.holidaysThisWeek.map(a => a.filter(b => b.type === '0').map(b => b.description))}
-          calendarHolidays={this.props.state.holidaysThisWeek.map(a => a.filter(b => b.type === '1').map(b => b.description))}
+          week={this.props.week}
+          folkHolidays={this.props.holidaysThisWeek.map(a => a.filter(b => b.type === '0').map(b => b.description))}
+          calendarHolidays={this.props.holidaysThisWeek.map(a => a.filter(b => b.type === '1').map(b => b.description))}
         ></Calendar>
         <div className="calendar-controls">
           <button title="Previous Week" onClick={() => this.props.goToPrevWeek()}>{"<<"}</button>
@@ -36,7 +36,8 @@ export class CalendarControls extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    state
+    week: state.week,
+    holidaysThisWeek: state.holidaysThisWeek
   }
 };
 

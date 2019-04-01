@@ -15,7 +15,7 @@ const ERROR = "ERROR";
 const createGotDates = (state) => {
   return {
     type: GOT_DATA_FROM_API,
-    payload: state 
+    payload: state
   }
 }
 
@@ -110,7 +110,7 @@ function calendarReducer(state = initialState, action) {
     case CHANGE_START_DAY:
       return changeWeekStartDay(state, action.payload);
     case COMPONENT_MOUNT:
-      requestHolidays({...state});
+      requestHolidays({ ...state });
       break;
     case GOT_DATA_FROM_API:
       return {
@@ -121,6 +121,9 @@ function calendarReducer(state = initialState, action) {
         actualYear: action.payload.actualYear,
         requestedDates: action.payload.requestedDates
       };
+    case ERROR:
+      console.log("Error fetching API");
+      break;
     default:
       return state
   }
