@@ -20,6 +20,8 @@ function requestDates(state, weekDay = 0) {
       newState = {...newState, folkHolidaysThisWeek: getWeekHolidays(newState)}
       
       store.dispatch({type: "FETCH", payload: newState});
+      }).catch(() => {
+        store.dispatch({type: "ERROR"});
       })
 }
 
